@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:12.2
+    hostname: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - development-network
+
+  abordagens:
+    image: dev/abordagens:1
+    hostname: abordagens
+    container_name: abordagens
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SERVER_PORT: 8080
+      SPRING_PROFILES_ACTIVE: default
+      DATASOURCE_CONNECTION_HOSTNAME: postgres
+      DATASOURCE_CONNECTION_DATABASE: postgres
+      DATASOURCE_CONNECTION_USER: postgres
+      DATASOURCE_CONNECTION_PASS: postgres
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - development-network
+
+networks:
+  development-network:
+    driver: bridge

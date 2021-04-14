@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: 'abordagens'
+    
+server:  port: 8080
+  error:    include-stacktrace: on-param
+    
+datasource:
+  initialize: true
+  connection:
+    hostname: localhost
+    database: postgres
+    schema: public
+    port: 5432
+    user: postgres
+    pass: postgres
